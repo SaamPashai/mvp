@@ -1,0 +1,19 @@
+{
+  "name": "mvp",
+  "version": "1.0.0",
+  "description": "MVP for Capstone",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaamPashai/mvp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaamPashai/mvp/issues"
+  },
+  "homepage": "https://github.com/SaamPashai/mvp#readme"
+}
