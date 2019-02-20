@@ -18,9 +18,9 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.1.5/css/bootstrap/tabulator_bootstrap.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.1/d3.js"></script>
-    <script src="js/index.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -29,21 +29,32 @@
             <h1>Seattle Public Schools Management</h1>
         </header>
         <section>
-            <div class="dropdown">
-                    Select School:
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+            <div id="tableDiv" class="dropdown">
+                Select School:
+                <button id="tableButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                     School
+                    <span class="caret"></span>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Ballard</a>
-                    <a class="dropdown-item" href="#">Garfield</a>
-                    <a class="dropdown-item" href="#">Franklin</a>
-                    <a class="dropdown-item" href="#">Lincoln</a>
-                </div>
+                <ul id="tableMenu" class="dropdown-menu">
+                    <li><a href="#">Ballard</a></li>
+                    <li><a href="#">Garfield</a></li>
+                    <li><a href="#">Franklin</a></li>
+                    <li><a href="#">Lincoln</a></li>
+                </ul>
             </div>
         </section>
+        <br>
+        <section>
+            <table id="myTable" align="center">
+                <tr>
+                    <th>Task</th>
+                </tr>
+            </table>
+        </section>
+
+
     </main>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
