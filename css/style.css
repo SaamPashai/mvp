@@ -10,3 +10,8 @@ h1{
 .dropdown{
     text-align: center;
 }
+
+table{
+    white-space: nowrap;
+    align-content: center;
+}

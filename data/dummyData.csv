@@ -1,5 +1,5 @@
-School	Task1	Task2	Task3	Task4
-Ballard	Restock Computers	Finish catalog	Set up NAT	Train new employees
-Garfield	Reboot Network	Remove old data	Write scripts	
-Franklin	Fix Laptops	Provide new data		
-Lincoln	Open new servers	finish catalog		
+School,Task1,Task2,Task3,Task4
+Ballard,Restock Computers,Finish catalog,Set up NAT,Train new employees
+Garfield,Reboot Network,Remove old data,Write scripts,
+Franklin,Fix Laptops,Provide new data,,
+Lincoln,Open new servers,,,
