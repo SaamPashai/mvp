@@ -15,3 +15,13 @@ table{
     white-space: nowrap;
     align-content: center;
 }
+
+.taskHead{
+    text-align: center;
+}
+
+.logo{
+    padding: 0 1em;
+    float: left;
+    height: 100px;
+}
