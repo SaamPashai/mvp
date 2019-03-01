@@ -1,0 +1,18 @@
+
+.form-inline{
+  justify-content: center;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30pt;
+  text-shadow: 0px 0px 10px aliceblue;
+  margin-bottom: 0;
+  margin-top: 2rem;
+} 
+
+.logo{
+  padding: 0 1em;
+  /* float: left; */
+  height: 100px;
+}

@@ -1,19 +1,34 @@
 {
-  "name": "mvp",
-  "version": "1.0.0",
-  "description": "MVP for Capstone",
-  "main": "index.js",
+  "name": "projectfx",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "chart.js": "^2.7.3",
+    "d3": "^5.7.0",
+    "jquery": "^3.3.1",
+    "rc-table": "^6.4.3",
+    "react": "^16.6.3",
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.5",
+    "reactstrap": "^6.5.0",
+    "victory": "^32.0.0"
+  },
   "scripts": {
-    "test": "npm run test"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SaamPashai/mvp.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SaamPashai/mvp/issues"
-  },
-  "homepage": "https://github.com/SaamPashai/mvp#readme"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
