@@ -14,34 +14,37 @@ th {
 
 
 .form-inline{
-  justify-content: center;
+  justify-content:center;
 }
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 30pt;
-  text-shadow: 0px 0px 10px aliceblue;
   margin-bottom: 0;
   margin-top: 2rem;
 }
 
 #please{
-  color: white;
+  font-weight: 600!important;
+  padding-top: 23px!important;
+  text-align: left!important;
+}
+
+#border{
+  background-color: #EEE;
 }
 
 .logo{
   padding: 0 1em;
+  margin-top: 10px;
   float: left;
-  height: 100px;
+  height: 70px;
 }
 
 /* .right{
   margin-right: -100px;
 } */
 
-#border{
-  background-color: navy;
-}
 
 #body{
   margin: 5px;
