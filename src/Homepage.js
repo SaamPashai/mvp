@@ -7,7 +7,6 @@ import { VictoryPie, VictoryTheme } from 'victory';
 
 
 
-
 export class Homepage extends Component {
     render() {
         return (
@@ -68,7 +67,10 @@ class SPSdropDown extends Component {
 
     render() {
         let columns = [{
-            title: 'Task-Description', dataIndex: 'name', key: 'name', width: 200,
+            title: 'Task Description', dataIndex: 'name', key: 'name', width: 200,
+        }, {
+            title: 'Percent Done', dataIndex: 'percentage', key: 'percentage', width: 200,
+
         }];
 
         let dataT = [{}];
@@ -77,64 +79,71 @@ class SPSdropDown extends Component {
         if (this.state.schoolVar === 'Ballard') {
             dataT =
                 [
-                    { name: 'Restock Computers' },
-                    { name: 'Finish catalog' },
-                    { name: 'Set up NAT' },
-                    { name: 'Train new employees' },
+                    { name: 'Restock Computers', percentage: 25 },
+                    { name: 'Finish catalog', percentage: 50 },
+                    { name: 'Set up NAT', percentage: 60 },
+                    { name: 'Train new employees', percentage: 95 },
                 ];
         }
         if (this.state.schoolVar === 'Garfield') {
             dataT =
                 [
-                    { name: 'Reboot Network' },
-                    { name: 'Remove old data' },
-                    { name: 'Write scripts' },
+                    { name: 'Reboot Network', percentage: 10 },
+                    { name: 'Remove old data', percentage: 5 },
+                    { name: 'Write scripts', percentage: 20 },
                 ];
         }
         if (this.state.schoolVar === 'Franklin') {
             dataT =
                 [
-                    { name: 'Fix Laptops' },
-                    { name: 'Provide new data' },
+                    { name: 'Fix Laptops', percentage: 25 },
+                    { name: 'Provide new data', percentage: 75 },
                 ];
         }
         if (this.state.schoolVar === 'Lincoln') {
             dataT =
                 [
-                    { name: 'Open new servers' },
+                    { name: 'Open new servers', percentage: 80 },
                 ];
         }
         //console.log(data)
         console.log(this.state.data);
         return (
-            <div>
-                <img className="logo" src="./img/spslogo.jpeg" alt="SPS logo" />
-                <h1 className="text-center">Seattle Public Schools Management</h1>
-                <div className="text-center form-inline">
-                    School: <Dropdown direction="down" isOpen={this.state.dropdownOpen3} toggle={this.toggle3} className="but" size="sm">
-                        <DropdownToggle caret>
-                            Select
-                            </DropdownToggle>
-                        <DropdownMenu>
-                            {['Ballard', 'Garfield', 'Franklin', 'Lincoln'].map((d) => {
-                                return <DropdownItem onClick={() => this.setTable(d)}>{d}</DropdownItem>
-                            })
-
-                            }
-                        </DropdownMenu>
-                    </Dropdown>
+            <div id="body">
+                <div id="border">
+                    <img className="logo" src="./img/spslogo.jpeg" alt="SPS logo" />
+                    <h1 className="text-center" id="please">Seattle Public Schools Management</h1>
+                    <br></br>
+                    <br></br>
                 </div>
-                <div className="text-center">
+                <br></br>
+                <div className="text-center form-inline">
+                        School:  <Dropdown direction="down" isOpen={this.state.dropdownOpen3} toggle={this.toggle3} className="but" size="sm">
+                            <DropdownToggle caret>
+                                Select
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                {['Ballard', 'Garfield', 'Franklin', 'Lincoln'].map((d) => {
+                                    return <DropdownItem onClick={() => this.setTable(d)}>{d}</DropdownItem>
+                                })
+
+                                }
+                            </DropdownMenu>
+                        </Dropdown>
+                    
+                </div>
+                <br></br>
+                <div className="text-center right">
                     <h2 >Tasks:</h2>
                     <div className="form-inline">
                         <Table columns={columns} data={dataT} />
                     </div>
                 </div>
-
             </div >
         )
     }
 }
+
 
 
 
