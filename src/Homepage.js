@@ -5,8 +5,6 @@ import Table from 'rc-table';
 import { throws } from 'assert';
 import { VictoryPie, VictoryTheme } from 'victory';
 
-
-
 export class Homepage extends Component {
     render() {
         return (
@@ -33,18 +31,6 @@ class SPSdropDown extends Component {
             schoolVar: "",
         }
     }
-
-    // toggle() {
-    //     this.setState(prevState => ({
-    //         dropdownOpen: !prevState.dropdownOpen
-    //     }));
-    // }
-
-    // toggle2() {
-    //     this.setState(prevState => ({
-    //         dropdownOpen2: !prevState.dropdownOpen2
-    //     }));
-    // }
 
     toggle3() {
         this.setState(prevState => ({
