@@ -111,9 +111,8 @@ class SPSdropDown extends Component {
         return (
             <div id="body">
                 <div id="border">
-                    <img className="logo" src="./img/spslogo.jpeg" alt="SPS logo" />
+                    <img className="logo" src="./img/spslogo.png" alt="SPS logo" />
                     <h1 className="text-center" id="please">Seattle Public Schools Management</h1>
-                    <br></br>
                     <br></br>
                 </div>
                 <br></br>
@@ -130,7 +129,7 @@ class SPSdropDown extends Component {
                                 }
                             </DropdownMenu>
                         </Dropdown>
-                    
+
                 </div>
                 <br></br>
                 <div className="text-center right">
@@ -143,7 +142,3 @@ class SPSdropDown extends Component {
         )
     }
 }
-
-
-
-
