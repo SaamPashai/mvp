@@ -39,7 +39,8 @@ export default class App extends Component {
 		this.authUnRegFunc.off();
 	}
 
-	// A callback function for registering new users
+  // A callback function for registering new users. Won't be needed for our purposes but I'll put 
+  // it here for now incase we want to implement SPS employee signup
 	handleSignup = (email, password, handle) => {
 		this.setState({errorMessage: null}); // clears old errors
 
