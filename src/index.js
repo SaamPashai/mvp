@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// importing CSS
-import './index.css';
-
 // importing third-party modules
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 

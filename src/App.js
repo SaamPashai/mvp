@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // importing third party packages
@@ -108,13 +107,13 @@ export default class App extends Component {
             />
         </div>
       );
-    } else {
+    } else { // renders dashboard content
       content = (
-        <h1>Logged in!</h1>
+        <Homepage />
       );
     }
 
-    return(
+    return( // render any error messages plus content
       <div>
         {
           this.state.errorMessage &&
