@@ -47,9 +47,7 @@ export default class App extends Component {
 		return firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then(userCreds => {
 				let user = userCreds.user;
-				return user.updateProfile({
-					displayName: handle
-				});
+				return user;
 			})
 			.catch(err => {
 				this.setState(state => {
@@ -111,7 +109,7 @@ export default class App extends Component {
     } else { // renders dashboard content if logged in
       content = (
 				<div>
-					<Homepage />
+					<Homepage user={this.state.user}/>
 					{this.state.user &&
 						<button className="btn btn-warning" onClick={this.handleSignOut}>
 							Log Out {this.state.user.displayName}

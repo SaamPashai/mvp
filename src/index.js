@@ -4,10 +4,11 @@ import ReactDOM from 'react-dom';
 // importing third-party modules
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 
 // import and configuration for firebase
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 var config = {
   apiKey: "AIzaSyAcU2-EOYtKpOORURR7E0H4w2Ox3_OybQc",
   authDomain: "capstone-team-c04.firebaseapp.com",

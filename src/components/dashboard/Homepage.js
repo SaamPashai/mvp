@@ -14,7 +14,7 @@ export class Homepage extends Component {
 		return (
 			<div>
 				<Header />
-				<TaskCreationModal />
+				<TaskCreationModal currentUser={this.props.user}/>
 				<TaskDropdown />
 			</div>
 		)

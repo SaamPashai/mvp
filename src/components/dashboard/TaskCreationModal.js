@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import firebase from 'firebase/app'
 
 export class TaskCreationModal extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export class TaskCreationModal extends Component {
     this.state = {
       modal: false,
       school: 'Garfield', // pass in this prop later. For now the default is Garfield
-      subTaskNum: 0,
+      subTaskNum: 0
     };
 
     this.toggle = this.toggle.bind(this);
@@ -16,21 +17,47 @@ export class TaskCreationModal extends Component {
   // Toggles whether or not the modal is open
   toggle = (event) => {
     if (event.target.id === 'taskSubmitBtn') {
-      console.log('true!');
-    } else if (event.target.id === 'addSubtaskBtn') {
+      this.submitTask(event);
+    }
+    
+    if (event.target.id === 'addSubtaskBtn') {
       this.setState(prevState => ({
         subTaskNum: prevState.subTaskNum + 1
       }));
-    } else {
+    } else { // if any of the cancel buttons are clicked
       this.setState(prevState => ({
-        modal: !prevState.modal
+        modal: !prevState.modal,
+        subTaskNum: 0
       }));
     }
   }
 
   // Submits a task to firebase
-  submitTask = () => {
+  submitTask = (event) => {
+    event.preventDefault(); // don't submit yet
+    let userId = this.props.currentUser.uid;
+    let newTask = {
+      school: this.state.school,
+      userId,
+      time: firebase.database.ServerValue.TIMESTAMP,
+      email: this.props.currentUser.email,
+      taskName: this.state.taskName,
+      description: this.state.taskDesc
+    }
 
+    let subtasks = [];
+    Object.keys(this.state).forEach(key => {
+      if (`${key}`.includes('subtask')) {
+        subtasks.push(this.state[key]);
+      }
+    });
+
+    if (subtasks.length > 0) {
+      newTask.subtasks = subtasks;
+    }
+
+    firebase.database().ref(`${this.state.school}/user/${userId}`).push(newTask)
+      .catch(err => console.log);
   };
 
   // handles change in user input
@@ -46,8 +73,18 @@ export class TaskCreationModal extends Component {
   render() {
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
     let subTaskInputs = [];
-    for (let i = 0; i < this.state.subTaskNum; i++) {
-      subTaskInputs.push(<li>Subtask {i + 1}</li>);
+
+    for (let i = 0; i < this.state.subTaskNum; i++) { // create subtask elements in modal
+      subTaskInputs.push(
+        <div className="form-group">
+          <label>Subtask #{i + 1}</label>
+          <input className="form-control" 
+            id={`subtask${i + 1}`}
+            name={`subtask${i + 1}`}
+            onChange={this.handleChange}
+            />
+        </div>
+      );
     }
 
     return(
@@ -79,9 +116,7 @@ export class TaskCreationModal extends Component {
               </div>
 
               {/* Add subtasks */}
-              <ol>
-                {subTaskInputs}
-              </ol>
+              {subTaskInputs}
               <Button id="addSubtaskBtn" onClick={this.toggle}>Add Subtask</Button>
             </form>
           </ModalBody>

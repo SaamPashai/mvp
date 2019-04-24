@@ -6,9 +6,7 @@ export class SignUpForm extends Component {
 
     this.state = {
       'email': undefined,
-      'password': undefined,
-      'handle': undefined,
-      'avatar': '' //default to blank value
+      'password': undefined
     }; 
   }
 
@@ -25,7 +23,7 @@ export class SignUpForm extends Component {
   // handle sign up button. Won't be needed later
   handleSignUp = (event) => {
     event.preventDefault();
-    this.props.signUpCallback(this.state.email, this.state.password, this.state.handle);
+    this.props.signUpCallback(this.state.email, this.state.password);
   }
 
   // handle signin button. Take this out later on because SPS workers should already have an account
@@ -55,16 +53,6 @@ export class SignUpForm extends Component {
             id="password" 
             type="password"
             name="password"
-            onChange={this.handleChange}
-            />
-        </div>
-
-        {/* handle */}
-        <div className="form-group">
-          <label htmlFor="handle">Handle</label>
-          <input className="form-control" 
-            id="handle" 
-            name="handle"
             onChange={this.handleChange}
             />
         </div>
