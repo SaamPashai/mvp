@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import firebase from 'firebase/app';
 import { Homepage } from './components/dashboard/Homepage.js';
 import { SignUpForm } from './components/signup/SignUpForm.js'
+import { Spinner } from 'reactstrap';
 
 export default class App extends Component {
 	constructor(props) {
@@ -92,12 +93,12 @@ export default class App extends Component {
 		if (this.state.loading) {
 			return(
 				<div className="text-center">
-					<i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+					<Spinner color="warning" size="lg"/>
 				</div>
 			);
     }
     
-    if (!this.state.user) { // if user logged out, show signup form
+    if (!this.state.user) { // if user not logged in
       content = (
         <div className="container">
           <h1>Sign Up (SPS Employees)</h1>
@@ -107,9 +108,16 @@ export default class App extends Component {
             />
         </div>
       );
-    } else { // renders dashboard content
+    } else { // renders dashboard content if logged in
       content = (
-        <Homepage />
+				<div>
+					<Homepage />
+					{this.state.user &&
+						<button className="btn btn-warning" onClick={this.handleSignOut}>
+							Log Out {this.state.user.displayName}
+						</button>
+					}
+				</div>
       );
     }
 
