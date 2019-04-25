@@ -112,7 +112,7 @@ export default class App extends Component {
 					<Homepage user={this.state.user}/>
 					{this.state.user &&
 						<button className="btn btn-warning" onClick={this.handleSignOut}>
-							Log Out {this.state.user.displayName}
+							Log Out {this.state.user.email}
 						</button>
 					}
 				</div>

@@ -32,7 +32,7 @@ export class TaskCreationModal extends Component {
     }
   }
 
-  // Submits a task to firebase
+  // Submits a task to firebase. This is where you define what you should add into the database
   submitTask = (event) => {
     event.preventDefault(); // don't submit yet
     let userId = this.props.currentUser.uid;
@@ -56,7 +56,7 @@ export class TaskCreationModal extends Component {
       newTask.subtasks = subtasks;
     }
 
-    firebase.database().ref(`${this.state.school}/user/${userId}`).push(newTask)
+    firebase.database().ref(`user/${userId}/${this.state.school}`).push(newTask)
       .catch(err => console.log);
   };
 
@@ -89,7 +89,9 @@ export class TaskCreationModal extends Component {
 
     return(
       <div>
-        <Button color="danger" onClick={this.toggle}>Create Task</Button>
+        <div id="createBtn">
+          <Button color="danger" onClick={this.toggle}>&#43;</Button>
+        </div>
         <Modal centered={true} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle} close={closeBtn}>Create a task for {this.state.school}</ModalHeader>
           <ModalBody>
