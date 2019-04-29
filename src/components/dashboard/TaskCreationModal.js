@@ -56,7 +56,7 @@ export class TaskCreationModal extends Component {
       newTask.subtasks = subtasks;
     }
 
-    firebase.database().ref(`user/${userId}/${this.state.school}`).push(newTask)
+    firebase.database().ref(`user/${userId}/schools/${this.state.school}`).push(newTask)
       .catch(err => console.log);
   };
 
