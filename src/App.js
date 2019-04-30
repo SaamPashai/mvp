@@ -5,7 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import firebase from 'firebase/app';
 import { SignUpForm } from './components/signup/SignUpForm.js'
 import { Spinner } from 'reactstrap';
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 // importing components
 import { Header } from './components/dashboard/Header.js';

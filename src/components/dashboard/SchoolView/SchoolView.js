@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 // importing CSS
 import './SchoolView.css';
 
+// import data
+import json from '../../../data/locations.json';
+
 export class SchoolView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      schools: ['Garfield', 'Ballard', "Franklin"], // schools to be populated from JSON
       usersSchools: [], // schools to be populated based on FireBase user
       schoolName: '',
       modal: false
@@ -74,6 +76,12 @@ export class SchoolView extends Component {
       });
     }
 
+    // getting list of school names to suggest during user input
+    let schools = []
+    json.forEach(entry => {
+      schools.push(entry.name);
+    })
+
     return (
       <div>
         <div>
@@ -89,7 +97,7 @@ export class SchoolView extends Component {
               name="schoolName"
               placeholder='Type here...'
               onChange={this.toggle}
-              options={this.state.schools}
+              options={schools}
             />
           </form>
         </ModalBody>

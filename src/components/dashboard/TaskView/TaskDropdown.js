@@ -67,8 +67,7 @@ export class TaskDropdown extends Component {
 				{ name: 'Open new servers', percentage: 80 },
 			];
 		}
-		//console.log(data)
-		console.log(this.state.data);
+		
 		return (
 			<div id="body">
 				<br/>
