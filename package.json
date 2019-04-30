@@ -15,6 +15,7 @@
     "moment": "^2.24.0",
     "rc-table": "^6.5.0",
     "react": "^16.8.6",
+    "react-bootstrap-typeahead": "^4.0.0-alpha.10",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",

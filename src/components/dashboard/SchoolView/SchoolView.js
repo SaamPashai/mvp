@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText, 
         CardTitle } from 'reactstrap';
 import firebase from 'firebase/app';
+import { Typeahead } from 'react-bootstrap-typeahead';
+
+import './SchoolView.css';
+import { type } from 'os';
 
 export class SchoolView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      schools: [],
+      schools: ['Garfield', 'Ballard', "Franklin"], // schools to be populated from JSON
+      usersSchools: [], // schools to be populated based on FireBase user
       schoolName: '',
       modal: false
     };
@@ -19,9 +24,9 @@ export class SchoolView extends Component {
     let userId = this.props.currentUser.uid;
     this.schoolsRef = firebase.database().ref(`user/${userId}/schools`);
     this.schoolsRef.on('value', snapshot => {
-      let schools = snapshot.val();
+      let usersSchools = snapshot.val();
       this.setState(state => {
-        state.schools = schools;
+        state.usersSchools = usersSchools;
         return state;
       })
     })
@@ -29,49 +34,49 @@ export class SchoolView extends Component {
 
   // toggles whether or not modal is open
   toggle = (event) => {
-    if (event.target.id === 'submitSchoolBtn') {
-      this.submitSchool(event);
+    if (Array.isArray(event)) { //
+      this.submitSchool(event[0]);
     }
+
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
 
-  // handles change in user input
-  handleChange = (event) => {
-    let field = event.target.name;
-    let value = event.target.value;
-
-    let changes = {};
-    changes[field] = value;
-    this.setState(changes);
-  }
-
   // Submits a school to the FireBase DB
-  submitSchool = (event) => {
-    event.preventDefault();
-
+  submitSchool = (school) => {
     let userId = this.props.currentUser.uid;
-    firebase.database().ref(`user/${userId}/schools/${this.state.schoolName}`).push({ // cannot add empty value, so need to add dummy value
-        intializer: true
+    firebase.database().ref(`user/${userId}/schools/${school}`).push({ // cannot add empty value, so need to add dummy value
+        initializer: true
       })
       .catch(err => console.log);
   }
 
   render() {
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
-    let schools = Object.keys(this.state.schools);
+
+    // Making school cards
     let schoolCards = [];
-    for (let i = 0; i < schools.length; i++) {
-      schoolCards.push(
-        <div>
-          <Card>
-            <CardTitle>{schools[i]}</CardTitle>
-            <CardText>Example text</CardText>
-          </Card>
-        </div>
-      )
+    if (this.state.usersSchools !== null) {
+      let usersSchools = Object.keys(this.state.usersSchools);
+      for (let i = 0; i < usersSchools.length; i++) {
+        schoolCards.push(
+          <div>
+            <a href="/">
+              <Card className="schoolCard">
+                <CardTitle>{usersSchools[i]}</CardTitle>
+                <CardText>Example text</CardText>
+              </Card>
+            </a>
+          </div>
+        )
+      }
     }
+
+    // Handling user input and recommending schools
+    const list = this.state.schools
+      .filter(d => this.state.input === '' || d.includes(this.state.input))
+      .map((d, index) => <li key={index}>{d}</li>);
 
     return (
       <div>
@@ -83,25 +88,24 @@ export class SchoolView extends Component {
         <ModalHeader toggle={this.toggle} close={closeBtn}>Add School</ModalHeader>
         <ModalBody>
           <form>
-            {/* School name input */}
-            <div className="form-group">
-              <label htmlFor="schoolName">School Name</label>
-              <input className="form-control"
-                id="schoolName"
-                name="schoolName"
-                onChange={this.handleChange}
-              />
-            </div>
+            <Typeahead 
+              id="schoolName"
+              name="schoolName"
+              placeholder='Type here...'
+              onChange={this.toggle}
+              options={this.state.schools}
+            />
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button id="submitSchoolBtn" color="primary" onClick={this.toggle}>Submit</Button>{' '}
           <Button color="secondary" onClick={this.toggle}>Cancel</Button>
         </ModalFooter>
       </Modal>
 
       {/* School cards */}
-      {schoolCards}
+      <div className="container">
+        {schoolCards}
+      </div>
     </div>
     );
   }

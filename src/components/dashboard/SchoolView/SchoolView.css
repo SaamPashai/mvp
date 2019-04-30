@@ -1,0 +1,13 @@
+.container a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.container a:hover {
+    color: #dea702;
+    font-weight: 500;
+}
+
+.schoolCard {
+    background-color: #005da9;
+}
