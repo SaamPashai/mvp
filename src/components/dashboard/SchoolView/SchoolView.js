@@ -3,9 +3,10 @@ import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText,
         CardTitle } from 'reactstrap';
 import firebase from 'firebase/app';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { Link } from 'react-router-dom';
 
+// importing CSS
 import './SchoolView.css';
-import { type } from 'os';
 
 export class SchoolView extends Component {
   constructor(props) {
@@ -59,24 +60,19 @@ export class SchoolView extends Component {
     let schoolCards = [];
     if (this.state.usersSchools !== null) {
       let usersSchools = Object.keys(this.state.usersSchools);
-      for (let i = 0; i < usersSchools.length; i++) {
+      usersSchools.forEach(school => {
         schoolCards.push(
           <div>
-            <a href="/">
+            <Link to="/tasks">
               <Card className="schoolCard">
-                <CardTitle>{usersSchools[i]}</CardTitle>
+                <CardTitle>{school}</CardTitle>
                 <CardText>Example text</CardText>
               </Card>
-            </a>
+            </Link>
           </div>
-        )
-      }
+        );
+      });
     }
-
-    // Handling user input and recommending schools
-    const list = this.state.schools
-      .filter(d => this.state.input === '' || d.includes(this.state.input))
-      .map((d, index) => <li key={index}>{d}</li>);
 
     return (
       <div>

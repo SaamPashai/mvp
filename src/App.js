@@ -3,9 +3,17 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // importing third party packages
 import firebase from 'firebase/app';
-import { Homepage } from './components/dashboard/Homepage.js';
 import { SignUpForm } from './components/signup/SignUpForm.js'
 import { Spinner } from 'reactstrap';
+import { Switch, Route, Redirect } from 'react-router-dom'
+
+// importing components
+import { Header } from './components/dashboard/Header.js';
+import { TaskView } from './components/dashboard/TaskView/TaskView.js'
+import { SchoolView } from './components/dashboard/SchoolView/SchoolView.js';
+
+// import css files
+import './index.css';
 
 export default class App extends Component {
 	constructor(props) {
@@ -60,8 +68,6 @@ export default class App extends Component {
 	// A callback function for logging in a user
 	handleSignIn = (email, password) => {
 		this.setState({errorMessage: null}); //clear any old errors
-
-		/* TODO: sign in user here */
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.catch(err => {
 				this.setState(state => {
@@ -85,8 +91,6 @@ export default class App extends Component {
 	}
 
 	render() {
-		let content = null; // content to render
-
 		// If this page is currently loading, show a spinner
 		if (this.state.loading) {
 			return(
@@ -97,7 +101,7 @@ export default class App extends Component {
     }
     
     if (!this.state.user) { // if user not logged in
-      content = (
+      return (
         <div className="container">
           <h1>Sign Up (SPS Employees)</h1>
             <SignUpForm 
@@ -107,27 +111,23 @@ export default class App extends Component {
         </div>
       );
     } else { // renders dashboard content if logged in
-      content = (
+      return (
 				<div>
-					<Homepage user={this.state.user}/>
-					{this.state.user &&
-						<button className="btn btn-warning" onClick={this.handleSignOut}>
-							Log Out {this.state.user.email}
-						</button>
-					}
+					<Header />
+					<Switch>
+						<Route exact path ="/" render={() => { return (
+							<main>
+								<SchoolView currentUser={this.state.user} />
+							</main>
+						)}}/>
+						<Route path="/tasks" render={(props) => <TaskView currentUser={this.state.user} />}/>
+					</Switch>
+					<button className="btn btn-warning" onClick={this.handleSignOut}>
+						Log Out {this.state.user.email}
+					</button>
 				</div>
       );
     }
-
-    return( // render any error messages plus content
-      <div>
-        {
-          this.state.errorMessage &&
-          <p className="alert alert-danger">{this.state.errorMessage}</p>
-        }
-        {content}
-      </div>
-    );
 	}
 }
 
