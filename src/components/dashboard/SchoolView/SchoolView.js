@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText, 
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText, CardBody,
         CardTitle } from 'reactstrap';
 import firebase from 'firebase/app';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -63,16 +63,31 @@ export class SchoolView extends Component {
     // Making school cards
     let schoolCards = [];
     if (this.state.usersSchools !== null) {
+
       let usersSchools = Object.keys(this.state.usersSchools);
+      let schoolMetaData = []; // storing metadata to get school properties from json file
+      json.forEach(entry => {
+        if (usersSchools.includes(entry.name)) {
+          schoolMetaData[entry.name] = entry;
+        }
+      });
+
       usersSchools.forEach(school => {
         schoolCards.push(
           <div>
-            <Link to="/tasks" onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
+            
               <Card className="schoolCard">
+              <CardBody>
                 <CardTitle>{school}</CardTitle>
-                <CardText>Example text</CardText>
+                <Button color="warning">Information</Button>
+                <Button>
+                <Link color="danger" to="/tasks" 
+                  onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
+                  Tasks
+                </Link>
+                </Button>
+                </CardBody>
               </Card>
-            </Link>
           </div>
         );
       });
@@ -82,7 +97,7 @@ export class SchoolView extends Component {
     let schools = []
     json.forEach(entry => {
       schools.push(entry.name);
-    })
+    });
 
     return (
       <div>
