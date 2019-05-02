@@ -7,7 +7,7 @@ export class TaskCreationModal extends Component {
     super(props);
     this.state = {
       modal: false,
-      school: 'Garfield', // pass in this prop later. For now the default is Garfield
+      school: this.props.schoolName, // pass in this prop later. For now the default is Garfield
       subTaskNum: 0
     };
 
@@ -56,7 +56,7 @@ export class TaskCreationModal extends Component {
       newTask.subtasks = subtasks;
     }
 
-    firebase.database().ref(`user/${userId}/schools/${this.state.school}`).push(newTask)
+    firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}`).push(newTask)
       .catch(err => console.log);
   };
 

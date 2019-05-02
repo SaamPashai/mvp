@@ -8,7 +8,7 @@ export class TaskView extends Component {
         console.log(this.props.schoolName);
         return (
             <div>
-                <TaskCreationModal currentUser={this.props.currentUser}/>
+                <TaskCreationModal currentUser={this.props.currentUser} schoolName={this.props.schoolName}/>
                 <TaskDropdown />
             </div>
         )
