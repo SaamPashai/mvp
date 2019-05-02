@@ -24,6 +24,13 @@ export class TaskCreationModal extends Component {
       this.setState(prevState => ({
         subTaskNum: prevState.subTaskNum + 1
       }));
+    }else if (event.target.id === 'x') {
+      this.setState(prevState => ({
+        subTaskNum: prevState.subTaskNum - 1
+      }));
+      this.setState(prevState => ({
+        subTaskNum: prevState.subTaskNum - 1
+      }));
     } else { // if any of the cancel buttons are clicked
       this.setState(prevState => ({
         modal: !prevState.modal,
@@ -77,9 +84,9 @@ export class TaskCreationModal extends Component {
     for (let i = 0; i < this.state.subTaskNum; i++) { // create subtask elements in modal
       subTaskInputs.push(
         <div className="form-group">
-          <label>Subtask #{i + 1}</label>
+          <label>Subtask #{i + 1}</label> <Button id="x"color="secondary" onClick={this.toggle}>X</Button>
           <input className="form-control" 
-            id={`subtask${i + 1}`}
+            id={`subtask${i + 1}`} // this is this.state.subtask
             name={`subtask${i + 1}`}
             onChange={this.handleChange}
             />
