@@ -110,7 +110,7 @@ export class SchoolView extends Component {
     if (this.state.schoolName !== '') {
       infoModal =     
       <div>
-        <Modal isOpen={this.state.infoModal} toggle={this.toggleInfo} className={this.props.className}>
+        <Modal centered={true} isOpen={this.state.infoModal} toggle={this.toggleInfo} className={this.props.className}>
           <ModalHeader toggle={this.toggleInfo} close={infoCloseBtn}>School Information</ModalHeader>
           <ModalBody>
             <strong>Cluster:</strong> {schoolMetaData[this.state.schoolName].u_cluster}
