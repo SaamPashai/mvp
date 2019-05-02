@@ -77,15 +77,15 @@ export class SchoolView extends Component {
           <div>
             
               <Card className="schoolCard">
-              <CardBody>
-                <CardTitle>{school}</CardTitle>
-                <Button color="warning">Information</Button>
-                <Button>
-                <Link color="danger" to="/tasks" 
-                  onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
-                  Tasks
-                </Link>
-                </Button>
+                <CardBody>
+                  <CardTitle>{school}</CardTitle>
+                  <Button color="warning">Information</Button>
+                  <Button>
+                  <Link color="danger" to="/tasks" 
+                    onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
+                    Tasks
+                  </Link>
+                  </Button>
                 </CardBody>
               </Card>
           </div>

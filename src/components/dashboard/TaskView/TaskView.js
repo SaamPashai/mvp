@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // importing components
-import { TaskDropdown } from './TaskDropdown.js'
 import { TaskCreationModal } from './TaskCreationModal'
 export class TaskView extends Component {
     render() {
@@ -9,7 +8,6 @@ export class TaskView extends Component {
         return (
             <div>
                 <TaskCreationModal currentUser={this.props.currentUser} schoolName={this.props.schoolName}/>
-                <TaskDropdown />
             </div>
         )
     }
