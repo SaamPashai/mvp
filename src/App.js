@@ -19,8 +19,17 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loading: true
+			loading: true,
+			schoolName: ''
 		};
+	}
+
+	// Callback handler for getting school from SchoolView to put into TaskView
+	getSchoolName(schoolName) {
+		this.setState(state => {
+			state.schoolName = schoolName;
+			return state;
+		});
 	}
 
 	// handle user logging in and out
@@ -117,10 +126,17 @@ export default class App extends Component {
 					<Switch>
 						<Route exact path ="/" render={() => { return (
 							<main>
-								<SchoolView currentUser={this.state.user} />
+								<SchoolView 
+									currentUser={this.state.user} 
+									getSchoolNameCallback={(schoolName) => this.getSchoolName(schoolName)}
+								/>
 							</main>
 						)}}/>
-						<Route path="/tasks" render={(props) => <TaskView currentUser={this.state.user} />}/>
+						<Route path="/tasks" 
+							render={
+								(props) => <TaskView schoolName={this.state.schoolName} currentUser={this.state.user}/>
+							}
+						/>
 					</Switch>
 					<button className="btn btn-warning" onClick={this.handleSignOut}>
 						Log Out {this.state.user.email}

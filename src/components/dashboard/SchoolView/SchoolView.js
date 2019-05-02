@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText, 
         CardTitle } from 'reactstrap';
@@ -38,7 +39,8 @@ export class SchoolView extends Component {
   // toggles whether or not modal is open
   toggle = (event) => {
     if (Array.isArray(event)) { //
-      this.submitSchool(event[0]);
+      let schoolName = event[0];
+      this.submitSchool(schoolName);
     }
 
     this.setState(prevState => ({
@@ -65,7 +67,7 @@ export class SchoolView extends Component {
       usersSchools.forEach(school => {
         schoolCards.push(
           <div>
-            <Link to="/tasks">
+            <Link to="/tasks" onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
               <Card className="schoolCard">
                 <CardTitle>{school}</CardTitle>
                 <CardText>Example text</CardText>
@@ -93,8 +95,7 @@ export class SchoolView extends Component {
         <ModalBody>
           <form>
             <Typeahead 
-              id="schoolName"
-              name="schoolName"
+              id="school"
               placeholder='Type here...'
               onChange={this.toggle}
               options={schools}

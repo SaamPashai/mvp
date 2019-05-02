@@ -5,6 +5,7 @@ import { TaskDropdown } from './TaskDropdown.js'
 import { TaskCreationModal } from './TaskCreationModal'
 export class TaskView extends Component {
     render() {
+        console.log(this.props.schoolName);
         return (
             <div>
                 <TaskCreationModal currentUser={this.props.currentUser}/>
