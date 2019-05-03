@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.16.6",
     "async": "^2.6.2",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",

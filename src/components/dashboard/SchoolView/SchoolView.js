@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
 import React, { Component } from 'react';
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardText, CardBody,
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Card, CardBody,
         CardTitle } from 'reactstrap';
 import firebase from 'firebase/app';
 import { Typeahead } from 'react-bootstrap-typeahead';
@@ -36,6 +35,10 @@ export class SchoolView extends Component {
         return state;
       })
     })
+  }
+
+  componentWillUnmount() {
+    this.schoolsRef.off(); // turns off the listener
   }
 
   toggleInfo = (event) => {

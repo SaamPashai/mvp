@@ -117,7 +117,7 @@ export class TaskCreationModal extends Component {
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea rows="4" cols="50" className="form-control" 
-                  id="taskDesc" 
+                  id="taskDesc"
                   name="taskDesc"
                   type="text"
                   onChange={this.handleChange}
