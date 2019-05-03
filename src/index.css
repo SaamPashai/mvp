@@ -100,7 +100,12 @@ button {
 
 #createBtn > button.btn.btn-danger {
   padding-bottom: 18px;
-  padding-right: 10px;
+  padding-right: 12px;
+}
+
+#createBtn {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .schoolCard.card {
@@ -135,4 +140,16 @@ button.btn.btn-primary.mr-2 {
   margin-top: 50px;
   font-weight: bold;
   margin-top: 50px;
+}
+
+.ant-table table {
+  box-shadow: 0px 8px 20px 1px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  width: 75%;
+  margin: 30px auto 20px auto;
+}
+
+.ant-table-pagination.ant-pagination {
+  text-align: center;
+  float: none;
 }
