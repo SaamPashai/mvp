@@ -11,6 +11,9 @@ import './SchoolView.css';
 // import data
 import json from '../../../data/locations.json';
 
+// importing components
+import { MapCarousel } from '../MapCarousel.js';
+
 export class SchoolView extends Component {
   constructor(props) {
     super(props);
@@ -18,11 +21,13 @@ export class SchoolView extends Component {
       usersSchools: [], // schools to be populated based on FireBase user
       schoolName: '',
       modal: false,
-      infoModal: false
+      infoModal: false,
+      mapModal: false
     };
 
     this.toggle = this.toggle.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
+    this.toggleMap = this.toggleMap.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +58,18 @@ export class SchoolView extends Component {
     }));
   }
 
+  toggleMap = (event) => {
+    let schoolName = '';
+    if (typeof(event) === 'string') {
+      schoolName = event;
+    }
+
+    this.setState(prevState => ({
+      mapModal: !prevState.mapModal,
+      schoolName
+    }));
+  }
+
   // toggles whether or not modal is open
   toggle = (event) => {
     if (Array.isArray(event)) { //
@@ -77,6 +94,7 @@ export class SchoolView extends Component {
   render() {
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
     const infoCloseBtn = <button className="close" onClick={this.toggleInfo}>&times;</button>;
+    const mapCloseBtn = <button className="close" onClick={this.toggleMap}>&times;</button>;
 
     // Making school cards
     let schoolCards = [];
@@ -101,6 +119,7 @@ export class SchoolView extends Component {
                   Tasks
                 </Link>
                 </Button>
+                <Button color="danger" onClick={(thisSchool) => this.toggleMap(school)}>Map</Button>
               </CardBody>
             </Card>
           </div>
@@ -151,30 +170,41 @@ export class SchoolView extends Component {
 
         {/* Modal to add school. Opens and closes */}
         <Modal centered={true} isOpen={this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle} close={closeBtn}>Add School</ModalHeader>
-        <ModalBody>
-          <form>
-            <Typeahead 
-              id="school"
-              placeholder='Type here...'
-              onChange={this.toggle}
-              options={schools}
-            />
-          </form>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-        </ModalFooter>
-      </Modal>
+          <ModalHeader toggle={this.toggle} close={closeBtn}>Add School</ModalHeader>
+          <ModalBody>
+            <form>
+              <Typeahead 
+                id="school"
+                placeholder='Type here...'
+                onChange={this.toggle}
+                options={schools}
+              />
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
 
-      {/* Modal for information on school */}
-      {infoModal}
+        {/* Modal for information on school */}
+        {infoModal}
 
-      {/* School cards */}
-      <div className="container">
-        {schoolCards}
+        {/* Modal for map of school clicked */}
+        <Modal centered={true} isOpen={this.state.mapModal} toggle={this.toggleMap}>
+          <ModalHeader toggle={this.toggleMap} close={mapCloseBtn}>Map(s)</ModalHeader>
+          <ModalBody>
+            <MapCarousel schoolName={this.state.schoolName}/>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggleMap}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
+        {/* School cards */}
+        <div className="container">
+          {schoolCards}
+        </div>
       </div>
-    </div>
     );
   }
 }
