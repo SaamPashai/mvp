@@ -84,14 +84,16 @@ export class TaskList extends Component {
 
     // rowSelection objects indicates the need for row selection
     let rowSelection = {
-      // onChange: (selectedRowKeys, selectedRows) => {
-      //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      // },
       onSelect: (record, selected, selectedRows) => {
         if (selected) { // if the checkbox is checked
+          console.log(record);
           console.log(`Record: ${record}`);
           console.log(`Selected: ${selected}`);
           console.log(`Selected rows: ${selectedRows}`);
+          if (!selected.subtaskId) { // if you're deleting a whole task
+            let userId = this.props.currentUser.uid;
+            firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
+          }
         }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {

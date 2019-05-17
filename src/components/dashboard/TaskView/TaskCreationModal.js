@@ -49,7 +49,7 @@ export class TaskCreationModal extends Component {
       time: firebase.database.ServerValue.TIMESTAMP,
       email: this.props.currentUser.email,
       taskName: this.state.taskName,
-      description: this.state.taskDesc
+      description: this.state.taskDesc ? this.state.taskDesc : ""
     }
 
     let subtasks = [];
