@@ -11,9 +11,6 @@ import './SchoolView.css';
 // import data
 import json from '../../../data/locations.json';
 
-// importing components
-import { MapCarousel } from '../MapCarousel.js';
-
 export class SchoolView extends Component {
   constructor(props) {
     super(props);
@@ -156,12 +153,15 @@ export class SchoolView extends Component {
         </Modal>
       </div>
     }
+
     // getting list of school names to suggest during user input
     let schools = []
     json.forEach(entry => {
       schools.push(entry.name);
     });
 
+    // Making display for maps
+    let imageCode = schoolMetaData[this.state.schoolName] ? schoolMetaData[this.state.schoolName].u_site_code : ''
     return (
       <div>
         <div>
@@ -193,7 +193,7 @@ export class SchoolView extends Component {
         <Modal centered={true} isOpen={this.state.mapModal} toggle={this.toggleMap}>
           <ModalHeader toggle={this.toggleMap} close={mapCloseBtn}>Map(s)</ModalHeader>
           <ModalBody>
-            <MapCarousel schoolName={this.state.schoolName}/>
+            { imageCode }
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggleMap}>Cancel</Button>
