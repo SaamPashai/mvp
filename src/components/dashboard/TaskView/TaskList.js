@@ -69,6 +69,7 @@ export class TaskList extends Component {
               subtaskId++;
               keyCounter++;
               children.push({
+                taskId: key,
                 subtaskId, // this is going to be used to delete subtasks when they're selected
                 key: keyCounter,
                 name: subtask
@@ -86,13 +87,15 @@ export class TaskList extends Component {
     let rowSelection = {
       onSelect: (record, selected, selectedRows) => {
         if (selected) { // if the checkbox is checked
-          console.log(record);
-          console.log(`Record: ${record}`);
-          console.log(`Selected: ${selected}`);
-          console.log(`Selected rows: ${selectedRows}`);
-          if (!selected.subtaskId) { // if you're deleting a whole task
+          // console.log(`Record: ${record}`);
+          // console.log(`Selected: ${selected}`);
+          // console.log(`Selected rows: ${selectedRows}`);
+          if (!record.subtaskId) { // if you're deleting a whole task
+            console.log('task!');
             let userId = this.props.currentUser.uid;
             firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
+          } else {
+            console.log('subtask!');
           }
         }
       },
