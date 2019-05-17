@@ -96,6 +96,11 @@ export class TaskList extends Component {
             firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
           } else {
             console.log('subtask!');
+            let userId = this.props.currentUser.uid;
+            let taskRef = firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.taskId}/subtasks`);
+            taskRef.on('value', snapshot => {
+              console.log(snapshot.val());
+            });
           }
         }
       },
