@@ -49,23 +49,27 @@ export class TaskList extends Component {
     if (this.state.userTasks !== null) {
       let userTaskKeys = Object.keys(this.state.userTasks);
       if (userTaskKeys.length !== 0) {
-        let keyCounter = 0; // needed for keys in Tree Table
+        let keyCounter = 0; // needed for to make rows in table
         userTaskKeys.forEach((key) => {
           keyCounter++;
           let time = new Date(this.state.userTasks[key].time);
           let taskObj = {
+            id: key, // this is going to be used to delete tasks when they're selected
             key: keyCounter,
             name: this.state.userTasks[key].taskName,
             desc: this.state.userTasks[key].description,
             dateTime: time.toString()
           }
 
-          if (this.state.userTasks[key].subtasks !== undefined) {
+          if (this.state.userTasks[key].subtasks !== undefined) { // adding subtasks to rows
             let children = [];
             let subtasks = this.state.userTasks[key].subtasks;
+            let subtaskId = 0;
             subtasks.forEach((subtask) => {
+              subtaskId++;
               keyCounter++;
               children.push({
+                subtaskId, // this is going to be used to delete subtasks when they're selected
                 key: keyCounter,
                 name: subtask
               });
@@ -80,11 +84,15 @@ export class TaskList extends Component {
 
     // rowSelection objects indicates the need for row selection
     let rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      },
+      // onChange: (selectedRowKeys, selectedRows) => {
+      //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      // },
       onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
+        if (selected) { // if the checkbox is checked
+          console.log(`Record: ${record}`);
+          console.log(`Selected: ${selected}`);
+          console.log(`Selected rows: ${selectedRows}`);
+        }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
         console.log(selected, selectedRows, changeRows);
