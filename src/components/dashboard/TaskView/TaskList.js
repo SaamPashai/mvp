@@ -49,23 +49,28 @@ export class TaskList extends Component {
     if (this.state.userTasks !== null) {
       let userTaskKeys = Object.keys(this.state.userTasks);
       if (userTaskKeys.length !== 0) {
-        let keyCounter = 0; // needed for keys in Tree Table
+        let keyCounter = 0; // needed for to make rows in table
         userTaskKeys.forEach((key) => {
           keyCounter++;
           let time = new Date(this.state.userTasks[key].time);
           let taskObj = {
+            id: key, // this is going to be used to delete tasks when they're selected
             key: keyCounter,
             name: this.state.userTasks[key].taskName,
             desc: this.state.userTasks[key].description,
             dateTime: time.toString()
           }
 
-          if (this.state.userTasks[key].subtasks !== undefined) {
+          if (this.state.userTasks[key].subtasks !== undefined) { // adding subtasks to rows
             let children = [];
             let subtasks = this.state.userTasks[key].subtasks;
+            let subtaskId = 0;
             subtasks.forEach((subtask) => {
+              subtaskId++;
               keyCounter++;
               children.push({
+                taskId: key,
+                subtaskId, // this is going to be used to delete subtasks when they're selected
                 key: keyCounter,
                 name: subtask
               });
@@ -80,11 +85,32 @@ export class TaskList extends Component {
 
     // rowSelection objects indicates the need for row selection
     let rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      },
       onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
+        if (selected) { // if the checkbox is checked
+          // console.log(`Record: ${record}`);
+          // console.log(`Selected: ${selected}`);
+          // console.log(`Selected rows: ${selectedRows}`);
+          if (!record.subtaskId) { // if you're deleting a whole task
+            let userId = this.props.currentUser.uid;
+            firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
+          } else {
+            let userId = this.props.currentUser.uid;
+            let taskRef = firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.taskId}/subtasks`);            
+            let subtasks;
+            taskRef.on('value', snapshot => {
+              subtasks = snapshot.val()
+            });
+
+            taskRef.off()
+
+            let value = record.name;
+            subtasks = subtasks.filter(item => item !== value);
+
+            taskRef.set(subtasks);
+
+            // taskRef.set(['hi', 'there']);
+          }
+        }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
         console.log(selected, selectedRows, changeRows);
