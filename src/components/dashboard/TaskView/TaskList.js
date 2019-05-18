@@ -91,16 +91,24 @@ export class TaskList extends Component {
           // console.log(`Selected: ${selected}`);
           // console.log(`Selected rows: ${selectedRows}`);
           if (!record.subtaskId) { // if you're deleting a whole task
-            console.log('task!');
             let userId = this.props.currentUser.uid;
             firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
           } else {
-            console.log('subtask!');
             let userId = this.props.currentUser.uid;
-            let taskRef = firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.taskId}/subtasks`);
+            let taskRef = firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.taskId}/subtasks`);            
+            let subtasks;
             taskRef.on('value', snapshot => {
-              console.log(snapshot.val());
+              subtasks = snapshot.val()
             });
+
+            taskRef.off()
+
+            let value = record.name;
+            subtasks = subtasks.filter(item => item !== value);
+
+            taskRef.set(subtasks);
+
+            // taskRef.set(['hi', 'there']);
           }
         }
       },
