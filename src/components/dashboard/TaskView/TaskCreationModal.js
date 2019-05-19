@@ -24,10 +24,9 @@ export class TaskCreationModal extends Component {
       this.setState(prevState => ({
         subTaskNum: prevState.subTaskNum + 1
       }));
-    }else if (event.target.id === 'x') {
-      this.setState(prevState => ({
-        subTaskNum: prevState.subTaskNum - 1
-      }));
+    }else if (event.target.id.includes('x')) {
+      let thisSubtask = event.target.id.split('_')[1];
+      delete this.state[thisSubtask];
       this.setState(prevState => ({
         subTaskNum: prevState.subTaskNum - 1
       }));
@@ -56,6 +55,7 @@ export class TaskCreationModal extends Component {
     Object.keys(this.state).forEach(key => {
       if (`${key}`.includes('subtask')) {
         subtasks.push(this.state[key]);
+        delete this.state[key]; // clear subtasks before next task submission
       }
     });
 
@@ -84,7 +84,7 @@ export class TaskCreationModal extends Component {
     for (let i = 0; i < this.state.subTaskNum; i++) { // create subtask elements in modal
       subTaskInputs.push(
         <div className="form-group">
-          <label>Subtask #{i + 1}</label> <Button id="x"color="secondary" onClick={this.toggle}>X</Button>
+          <label>Subtask #{i + 1}</label> <Button id={`x_subtask${i + 1}`} color="secondary" onClick={this.toggle}>&times;</Button>
           <input className="form-control" 
             id={`subtask${i + 1}`} // this is this.state.subtask
             name={`subtask${i + 1}`}

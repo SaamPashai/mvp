@@ -87,9 +87,6 @@ export class TaskList extends Component {
     let rowSelection = {
       onSelect: (record, selected, selectedRows) => {
         if (selected) { // if the checkbox is checked
-          // console.log(`Record: ${record}`);
-          // console.log(`Selected: ${selected}`);
-          // console.log(`Selected rows: ${selectedRows}`);
           if (!record.subtaskId) { // if you're deleting a whole task
             let userId = this.props.currentUser.uid;
             firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${record.id}`).remove();
@@ -105,10 +102,7 @@ export class TaskList extends Component {
 
             let value = record.name;
             subtasks = subtasks.filter(item => item !== value);
-
             taskRef.set(subtasks);
-
-            // taskRef.set(['hi', 'there']);
           }
         }
       },
