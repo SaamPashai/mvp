@@ -5,11 +5,15 @@ import firebase from 'firebase/app';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Link } from 'react-router-dom';
 
+import test from "./maps/AAA-1-11x17.jpg"
+
 // importing CSS
 import './SchoolView.css';
 
 // import data
 import json from '../../../data/locations.json';
+
+
 
 export class SchoolView extends Component {
   constructor(props) {
@@ -19,7 +23,7 @@ export class SchoolView extends Component {
       schoolName: '',
       modal: false,
       infoModal: false,
-      mapModal: false
+      mapModal: false,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -92,6 +96,7 @@ export class SchoolView extends Component {
     const closeBtn = <button className="close" onClick={this.toggle}>&times;</button>
     const infoCloseBtn = <button className="close" onClick={this.toggleInfo}>&times;</button>;
     const mapCloseBtn = <button className="close" onClick={this.toggleMap}>&times;</button>;
+    
 
     // Making school cards
     let schoolCards = [];
@@ -161,7 +166,10 @@ export class SchoolView extends Component {
     });
 
     // Making display for maps
+    
+   
     let imageCode = schoolMetaData[this.state.schoolName] ? schoolMetaData[this.state.schoolName].u_site_code : ''
+    console.log('./maps/'+imageCode+'-1-11x17.jpg');
     return (
       <div>
         <div>
@@ -188,12 +196,13 @@ export class SchoolView extends Component {
 
         {/* Modal for information on school */}
         {infoModal}
-
+  
         {/* Modal for map of school clicked */}
         <Modal centered={true} isOpen={this.state.mapModal} toggle={this.toggleMap}>
           <ModalHeader toggle={this.toggleMap} close={mapCloseBtn}>Map(s)</ModalHeader>
           <ModalBody>
-            { imageCode }
+            <img src={ require('./maps/'+imageCode+'-1-11x17.jpg') } alt="map" id="mapPic"></img>
+            {/* {"data/maps/"+imageCode+"-1-11x17.jpg"} */}
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggleMap}>Cancel</Button>
