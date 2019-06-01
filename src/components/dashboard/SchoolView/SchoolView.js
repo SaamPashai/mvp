@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Link } from 'react-router-dom';
 
+
 import test from "./maps/AAA-1-11x17.jpg"
 
 // importing CSS
@@ -12,8 +13,7 @@ import './SchoolView.css';
 
 // import data
 import json from '../../../data/locations.json';
-
-
+const fs = require('fs');
 
 export class SchoolView extends Component {
   constructor(props) {
@@ -97,6 +97,15 @@ export class SchoolView extends Component {
     const infoCloseBtn = <button className="close" onClick={this.toggleInfo}>&times;</button>;
     const mapCloseBtn = <button className="close" onClick={this.toggleMap}>&times;</button>;
     
+    try {
+      console.log(fs);
+      let dirContent = fs.readdirSync('./maps');
+      dirContent.forEach(path => {
+        console.log(path);
+      })
+    } catch (ex) {
+      console.log(ex);
+    }
 
     // Making school cards
     let schoolCards = [];

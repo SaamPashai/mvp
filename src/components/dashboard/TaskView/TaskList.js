@@ -8,7 +8,8 @@ export class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userTasks: []
+      userTasks: [],
+      selectedRowKeys: []
     }
   }
 
@@ -104,12 +105,23 @@ export class TaskList extends Component {
             subtasks = subtasks.filter(item => item !== value);
             taskRef.set(subtasks);
           }
+
+          this.setState({
+            selectedRowKeys: []
+          })
         }
       },
       onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log(selected, selectedRows, changeRows);
+        selectedRows.forEach(row => {
+          if (row.id) {
+            let userId = this.props.currentUser.uid;
+            firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks/${row.id}`).remove();
+          }
+        })
       },
     };
+
+    rowSelection.selectedRowKeys = this.state.selectedRowKeys;
 
 		return (
 			<div>
