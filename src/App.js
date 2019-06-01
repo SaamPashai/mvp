@@ -129,6 +129,7 @@ export default class App extends Component {
 								<SchoolView 
 									currentUser={this.state.user} 
 									getSchoolNameCallback={(schoolName) => this.getSchoolName(schoolName)}
+									signOutCallback={this.handleSignOut}
 								/>
 							</main>
 						)}}/>
@@ -138,9 +139,6 @@ export default class App extends Component {
 							}
 						/>
 					</Switch>
-					<button className="btn btn-warning" onClick={this.handleSignOut}>
-						<Link to="/">Log Out {this.state.user.email}</Link>
-					</button>
 				</div>
       );
     }

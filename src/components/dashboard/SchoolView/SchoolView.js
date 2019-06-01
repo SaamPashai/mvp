@@ -123,14 +123,14 @@ export class SchoolView extends Component {
             <Card className="schoolCard">
               <CardBody>
                 <CardTitle>{school}</CardTitle>
-                <Button color="warning" onClick={(thisSchool) => this.toggleInfo(school)}>Information</Button>
-                <Button>
-                <Link color="danger" to="/tasks" 
-                  onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
-                  Tasks
-                </Link>
+                <Button color="primary">
+                  <Link to="/tasks" 
+                    onClick={(thisSchool) => this.props.getSchoolNameCallback(school)}>
+                    Tasks
+                  </Link>
                 </Button>
-                <Button color="danger" onClick={(thisSchool) => this.toggleMap(school)}>Map</Button>
+                <Button color="warning" onClick={(thisSchool) => this.toggleMap(school)}>Map</Button>
+                <Button color="dark" onClick={(thisSchool) => this.toggleInfo(school)}>Information</Button>
               </CardBody>
             </Card>
           </div>
@@ -183,6 +183,9 @@ export class SchoolView extends Component {
       <div>
         <div>
           <Button color="danger" onClick={this.toggle}>Add School</Button>
+          <button className="btn btn-warning" id="log-out-btn" onClick={this.props.signOutCallback}>
+            <Link to="/">Log Out {this.props.currentUser.email}</Link>
+          </button>
         </div>
 
         {/* Modal to add school. Opens and closes */}
