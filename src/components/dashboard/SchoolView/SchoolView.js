@@ -175,8 +175,6 @@ export class SchoolView extends Component {
     });
 
     // Making display for maps
-    
-   
     let imageCode = schoolMetaData[this.state.schoolName] ? schoolMetaData[this.state.schoolName].u_site_code : ''
     console.log('./maps/'+imageCode+'-1-11x17.jpg');
     return (

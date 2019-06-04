@@ -63,8 +63,14 @@ export class TaskCreationModal extends Component {
       newTask.subtasks = subtasks;
     }
 
-    firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks`).push(newTask)
-      .catch(err => console.log);
+    if (this.state.taskName) {
+      firebase.database().ref(`user/${userId}/schools/${this.props.schoolName}/tasks`).push(newTask)
+        .catch(err => console.log);
+    } else {
+      window.alert('You need a task name!');
+    }
+
+    this.setState({ taskDesc: '', subtasks: [], taskName: ''});
   };
 
   // handles change in user input
