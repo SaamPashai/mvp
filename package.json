@@ -20,7 +20,7 @@
     "react-bootstrap-typeahead": "^4.0.0-alpha.10",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^7.5.2",
     "react-scripts": "^2.1.8",
     "reactstrap": "^8.0.0",
     "tedious": "^5.0.3",
